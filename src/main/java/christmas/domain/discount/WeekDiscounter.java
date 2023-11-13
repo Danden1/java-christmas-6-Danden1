@@ -23,27 +23,27 @@ public class WeekDiscounter implements Discounter{
         List<Menu> menus = weekDiscountRequest.getMenus();
         LocalDate orderDate = weekDiscountRequest.getOrderDate();
 
+        if (orderDate.getMonth().getValue() != 12 || orderDate.getYear() != 2023) {
+            return getNoDiscount(orderDate);
+        }
+
         if (isWeekendDiscount(orderDate)) {
             return new DiscountResponseDto(calculateWeekendDiscount(menus), WEEKEND_DISCOUNT_NAME);
         }
-        else if (isWeekDayDiscount(orderDate)) {
-            return new DiscountResponseDto(calculateWeekDayDiscount(menus), WEEKDAY_DISCOUNT_NAME);
+
+        return new DiscountResponseDto(calculateWeekDayDiscount(menus), WEEKDAY_DISCOUNT_NAME);
+    }
+
+    private DiscountResponseDto getNoDiscount(LocalDate orderDate) {
+        if (isWeekendDiscount(orderDate)) {
+            return new DiscountResponseDto(0, WEEKEND_DISCOUNT_NAME);
         }
-        else {
-            throw new IllegalArgumentException("올바르지 않은 할인입니다.");
-        }
+
+        return new DiscountResponseDto(0, WEEKDAY_DISCOUNT_NAME);
     }
 
     private boolean isWeekendDiscount(LocalDate orderDate) {
         if (orderDate.getDayOfWeek().equals(DayOfWeek.FRIDAY) || orderDate.getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean isWeekDayDiscount(LocalDate orderDate) {
-        if (!(orderDate.getDayOfWeek().equals(DayOfWeek.FRIDAY) || orderDate.getDayOfWeek().equals(DayOfWeek.SATURDAY))) {
             return true;
         }
 
