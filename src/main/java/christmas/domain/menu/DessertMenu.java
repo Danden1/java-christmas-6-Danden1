@@ -15,14 +15,17 @@ public enum DessertMenu implements Menu {
         this.name = name;
     }
 
+    @Override
     public int getPrice() {
         return price;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public String getPrintPrice() {
         return printPrice;
     }
