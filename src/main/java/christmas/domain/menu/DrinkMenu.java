@@ -1,8 +1,7 @@
 package christmas.domain.menu;
 
-import christmas.domain.food.Drink;
 
-public enum DrinkMenu implements Drink, Menu {
+public enum DrinkMenu implements Menu {
 
     ZERO_COKE(3_000, "3,000", "제로콜라"),
     RED_WINE(60_000, "60,000", "레드와인"),

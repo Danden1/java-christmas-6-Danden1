@@ -1,8 +1,6 @@
 package christmas.domain.menu;
 
-import christmas.domain.food.MainFood;
-
-public enum MainFoodMenu implements MainFood, Menu {
+public enum MainFoodMenu implements Menu {
 
     T_BONE_STEAK(55_000, "55,000", "티본스테이크"),
     BARBECUE_RIBS(54_000, "54,000", "바비큐립"),

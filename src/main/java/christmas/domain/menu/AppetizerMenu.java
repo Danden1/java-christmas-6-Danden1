@@ -1,8 +1,7 @@
 package christmas.domain.menu;
 
-import christmas.domain.food.Appetizer;
 
-public enum AppetizerMenu implements Appetizer, Menu {
+public enum AppetizerMenu implements Menu {
 
     BUTTON_MUSHROOM_SOUP(6_000, "6,000", "양송이수프"),
     TAPAS(5_500, "5,500", "타파스"),
