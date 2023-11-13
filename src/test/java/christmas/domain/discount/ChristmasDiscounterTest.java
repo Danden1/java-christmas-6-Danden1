@@ -1,7 +1,6 @@
 package christmas.domain.discount;
 
 import christmas.domain.discount.dto.ChristmasDiscountRequestDto;
-import christmas.domain.discount.dto.DiscountRequestDto;
 import christmas.domain.discount.dto.DiscountResponseDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -40,16 +39,5 @@ public class ChristmasDiscounterTest {
     }
 
 
-    public static class InvalidTestDto implements DiscountRequestDto {
-        private LocalDate orderDate;
-
-        public InvalidTestDto(LocalDate orderDate) {
-            this.orderDate = orderDate;
-        }
-
-        public LocalDate getOrderDate() {
-            return orderDate;
-        }
-    }
 
 }
