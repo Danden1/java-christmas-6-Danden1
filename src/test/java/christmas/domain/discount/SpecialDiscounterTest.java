@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class SpecialDiscounterTest {
@@ -41,6 +42,12 @@ public class SpecialDiscounterTest {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new SpecialDiscounter(testDate1));
         Assertions.assertThrows(IllegalArgumentException.class, () -> new SpecialDiscounter(testDate2));
+    }
+
+    @Test
+    @DisplayName("잘못된 request 타입 테스트")
+    public void testInvalidRequestType() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> specialDiscounter.discount(new InvalidTestDto(LocalDate.of(2023,12,1))));
     }
 
     private Set<LocalDate> getSpecialDate() {
