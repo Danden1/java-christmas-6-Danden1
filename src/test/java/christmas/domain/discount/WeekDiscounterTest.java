@@ -2,7 +2,6 @@ package christmas.domain.discount;
 
 import christmas.domain.discount.dto.DiscountResponseDto;
 import christmas.domain.menu.*;
-import christmas.domain.order.Order;
 import christmas.domain.order.OrderRequestDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
