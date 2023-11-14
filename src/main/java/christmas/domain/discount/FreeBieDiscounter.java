@@ -1,11 +1,10 @@
 package christmas.domain.discount;
 
-import christmas.domain.discount.dto.DiscountRequestDto;
 import christmas.domain.discount.dto.DiscountResponseDto;
-import christmas.domain.discount.dto.FreeBieRequestDto;
 import christmas.domain.discount.dto.FreeBieResponseDto;
 import christmas.domain.menu.DrinkMenu;
 import christmas.domain.menu.Menu;
+import christmas.domain.order.OrderRequestDto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,12 +17,10 @@ public class FreeBieDiscounter implements Discounter {
     private final int FREEBIE_MIN_PRICE = 120_000;
 
     @Override
-    public DiscountResponseDto discount(DiscountRequestDto discountRequestDto) {
-        if (!(discountRequestDto instanceof FreeBieRequestDto freeBieRequestDto)) {
-            throw new IllegalArgumentException("올바르지 않은 요청입니다.");
-        }
-        List<Menu> menus = freeBieRequestDto.getMenus();
-        LocalDate orderDate = freeBieRequestDto.getOrderDate();
+    public DiscountResponseDto discount(OrderRequestDto orderRequest) {
+
+        List<Menu> menus = orderRequest.getMenus();
+        LocalDate orderDate = orderRequest.getOrderDate();
 
         if (isFreeBie(menus, orderDate)) {
             return new FreeBieResponseDto(Optional.of(FREEBIE_MENU), DISCOUNT_NAME);

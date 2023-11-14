@@ -1,10 +1,9 @@
 package christmas.domain.discount;
 
-import christmas.domain.discount.dto.FreeBieRequestDto;
 import christmas.domain.discount.dto.FreeBieResponseDto;
 import christmas.domain.menu.DrinkMenu;
-import christmas.domain.menu.MainFoodMenu;
 import christmas.domain.menu.Menu;
+import christmas.domain.order.OrderRequestDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,7 @@ public class FreeBieDiscounterTest {
     @Test
     @DisplayName("증정 이벤트 테스트. 샴페인 증정하는 지 테스트.")
     public void testFreeBie() {
-        FreeBieRequestDto freeBieRequestDto = new FreeBieRequestDto(makeMenuOver120_000Won(), LocalDate.of(2023,12,1));
+        OrderRequestDto freeBieRequestDto = new OrderRequestDto(LocalDate.of(2023,12,1),makeMenuOver120_000Won());
         FreeBieResponseDto freeBieResponseDto = (FreeBieResponseDto) freeBieDiscounter.discount(freeBieRequestDto);
 
         Assertions.assertEquals(DrinkMenu.CHAMPAGNE, freeBieResponseDto.getFreeBieMenu().get());
@@ -30,7 +29,7 @@ public class FreeBieDiscounterTest {
     @Test
     @DisplayName("증정 이벤트 테스트. 기준 가격 이하로 주문했을 경우 테스트.")
     public void testNotFreeBie() {
-        FreeBieRequestDto freeBieRequestDto = new FreeBieRequestDto(makeMenuUnder120_000Won(), LocalDate.of(2023,12,1));
+        OrderRequestDto freeBieRequestDto = new OrderRequestDto(LocalDate.of(2023,12,1), makeMenuUnder120_000Won());
         FreeBieResponseDto freeBieResponseDto = (FreeBieResponseDto) freeBieDiscounter.discount(freeBieRequestDto);
 
         Assertions.assertEquals(Optional.empty(), freeBieResponseDto.getFreeBieMenu());
@@ -40,10 +39,10 @@ public class FreeBieDiscounterTest {
     @Test
     @DisplayName("23년 12월이 아닌 경우 할인 안 하는지 테스트")
     public void testInvalidFreeBieDateRange() {
-        FreeBieRequestDto freeBieRequestDto1 = new FreeBieRequestDto(makeMenuOver120_000Won(), LocalDate.of(2024,1,1));
+        OrderRequestDto freeBieRequestDto1 = new OrderRequestDto(LocalDate.of(2024,1,1), makeMenuOver120_000Won());
         FreeBieResponseDto freeBieResponseDto1 = (FreeBieResponseDto) freeBieDiscounter.discount(freeBieRequestDto1);
 
-        FreeBieRequestDto freeBieRequestDto2 = new FreeBieRequestDto(makeMenuOver120_000Won(), LocalDate.of(2023,11,30));
+        OrderRequestDto freeBieRequestDto2 = new OrderRequestDto(LocalDate.of(2023,11,30), makeMenuOver120_000Won());
         FreeBieResponseDto freeBieResponseDto2 = (FreeBieResponseDto) freeBieDiscounter.discount(freeBieRequestDto2);
 
         Assertions.assertEquals(Optional.empty(), freeBieResponseDto1.getFreeBieMenu());
@@ -52,13 +51,6 @@ public class FreeBieDiscounterTest {
         Assertions.assertEquals(Optional.empty(), freeBieResponseDto2.getFreeBieMenu());
         Assertions.assertEquals(0, freeBieResponseDto2.getTotalDiscount());
     }
-
-    @Test
-    @DisplayName("잘못된 request 타입 테스트")
-    public void testInvalidRequestType() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> freeBieDiscounter.discount(new InvalidTestDto(LocalDate.of(2023,12,1))));
-    }
-
 
     public static enum TestMenu implements Menu {
         THIRTY_THOUSAND(30_000, "테스트");

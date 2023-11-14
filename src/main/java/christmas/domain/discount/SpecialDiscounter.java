@@ -1,8 +1,7 @@
 package christmas.domain.discount;
 
-import christmas.domain.discount.dto.DiscountRequestDto;
 import christmas.domain.discount.dto.DiscountResponseDto;
-import christmas.domain.discount.dto.SpecialDiscountRequestDto;
+import christmas.domain.order.OrderRequestDto;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -24,11 +23,8 @@ public class SpecialDiscounter implements Discounter{
     }
 
     @Override
-    public DiscountResponseDto discount(DiscountRequestDto discountRequestDto) {
-        if (!(discountRequestDto instanceof SpecialDiscountRequestDto specialDiscountRequestDto)) {
-            throw new IllegalArgumentException("올바르지 않은 요청입니다.");
-        }
-        LocalDate orderDate = specialDiscountRequestDto.getOrderDate();
+    public DiscountResponseDto discount(OrderRequestDto orderRequest) {
+        LocalDate orderDate = orderRequest.getOrderDate();
         int totalDiscount = 0;
 
         if (specialDate.contains(orderDate)) {

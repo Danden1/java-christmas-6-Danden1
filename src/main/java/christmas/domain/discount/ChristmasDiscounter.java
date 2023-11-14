@@ -1,8 +1,7 @@
 package christmas.domain.discount;
 
-import christmas.domain.discount.dto.DiscountRequestDto;
-import christmas.domain.discount.dto.ChristmasDiscountRequestDto;
 import christmas.domain.discount.dto.DiscountResponseDto;
+import christmas.domain.order.OrderRequestDto;
 
 import java.time.LocalDate;
 
@@ -14,12 +13,9 @@ public class ChristmasDiscounter implements Discounter{
     private final String DISCOUNT_NAME = "크리스마스 디데이 할인";
 
     @Override
-    public DiscountResponseDto discount(DiscountRequestDto discountRequestDto) {
-        if (!(discountRequestDto instanceof ChristmasDiscountRequestDto discountRequest)) {
-            throw new IllegalArgumentException("올바르지 않은 요청입니다.");
-        }
+    public DiscountResponseDto discount(OrderRequestDto orderRequest) {
 
-        LocalDate orderDate = discountRequest.getOrderDate();
+        LocalDate orderDate = orderRequest.getOrderDate();
         int totalDiscount = 0;
 
         if (isValidDateRange(orderDate)) {

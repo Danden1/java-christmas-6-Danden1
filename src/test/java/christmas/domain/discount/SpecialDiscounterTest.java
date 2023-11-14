@@ -1,14 +1,15 @@
 package christmas.domain.discount;
 
 import christmas.domain.discount.dto.DiscountResponseDto;
-import christmas.domain.discount.dto.SpecialDiscountRequestDto;
+import christmas.domain.menu.Menu;
+import christmas.domain.order.OrderRequestDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class SpecialDiscounterTest {
@@ -18,7 +19,7 @@ public class SpecialDiscounterTest {
     @Test
     @DisplayName("특별한 날 할인 테스트")
     public void testSpecialDiscountTest() {
-        DiscountResponseDto result = specialDiscounter.discount(new SpecialDiscountRequestDto(LocalDate.of(2023, 12,3)));
+        DiscountResponseDto result = specialDiscounter.discount(new OrderRequestDto(LocalDate.of(2023, 12,3),new ArrayList<Menu>()));
 
         Assertions.assertEquals(1000, result.getTotalDiscount());
     }
@@ -26,7 +27,7 @@ public class SpecialDiscounterTest {
     @Test
     @DisplayName("일반 날 테스트")
     public void testNormalDiscountTest() {
-        DiscountResponseDto result = specialDiscounter.discount(new SpecialDiscountRequestDto(LocalDate.of(2023, 12,4)));
+        DiscountResponseDto result = specialDiscounter.discount(new OrderRequestDto(LocalDate.of(2023, 12,4), new ArrayList<Menu>()));
 
         Assertions.assertEquals(0, result.getTotalDiscount());
     }
@@ -42,12 +43,6 @@ public class SpecialDiscounterTest {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new SpecialDiscounter(testDate1));
         Assertions.assertThrows(IllegalArgumentException.class, () -> new SpecialDiscounter(testDate2));
-    }
-
-    @Test
-    @DisplayName("잘못된 request 타입 테스트")
-    public void testInvalidRequestType() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> specialDiscounter.discount(new InvalidTestDto(LocalDate.of(2023,12,1))));
     }
 
     private Set<LocalDate> getSpecialDate() {

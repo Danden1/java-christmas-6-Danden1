@@ -1,8 +1,9 @@
 package christmas.domain.discount;
 
 import christmas.domain.discount.dto.DiscountResponseDto;
-import christmas.domain.discount.dto.WeekDiscountRequestDto;
 import christmas.domain.menu.*;
+import christmas.domain.order.Order;
+import christmas.domain.order.OrderRequestDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ public class WeekDiscounterTest {
     @Test
     @DisplayName("주말 할인 테스트")
     public void testWeekendDiscount() {
-        DiscountResponseDto result = weekDiscounter.discount(new WeekDiscountRequestDto(LocalDate.of(2023,12,8), makeMenus()));
+        DiscountResponseDto result = weekDiscounter.discount(new OrderRequestDto(LocalDate.of(2023,12,8), makeMenus()));
 
         Assertions.assertEquals(2023 * 4, result.getTotalDiscount());
     }
@@ -26,22 +27,16 @@ public class WeekDiscounterTest {
     @Test
     @DisplayName("평일 할인 테스트")
     public void testWeekDayDiscount() {
-        DiscountResponseDto result = weekDiscounter.discount(new WeekDiscountRequestDto(LocalDate.of(2023,12,7), makeMenus()));
+        DiscountResponseDto result = weekDiscounter.discount(new OrderRequestDto(LocalDate.of(2023,12,7), makeMenus()));
 
         Assertions.assertEquals(2023 * 2, result.getTotalDiscount());
     }
 
     @Test
-    @DisplayName("잘못된 request 타입 테스트")
-    public void testInvalidRequestType() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> weekDiscounter.discount(new InvalidTestDto(LocalDate.of(2023,12,7))));
-    }
-
-    @Test
     @DisplayName("23년 12월 아닌 날짜 할인 테스트")
     public void testInvalidDiscountDateRange() {
-        DiscountResponseDto result1 = weekDiscounter.discount(new WeekDiscountRequestDto(LocalDate.of(2023,11,30), makeMenus()));
-        DiscountResponseDto result2 = weekDiscounter.discount(new WeekDiscountRequestDto(LocalDate.of(2023,11,25), makeMenus()));
+        DiscountResponseDto result1 = weekDiscounter.discount(new OrderRequestDto(LocalDate.of(2023,11,30), makeMenus()));
+        DiscountResponseDto result2 = weekDiscounter.discount(new OrderRequestDto(LocalDate.of(2023,11,25), makeMenus()));
 
         Assertions.assertEquals(0, result1.getTotalDiscount());
         Assertions.assertEquals("평일 할인", result1.getDiscountName());

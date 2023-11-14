@@ -1,8 +1,8 @@
 package christmas.domain.discount;
 
-import christmas.domain.discount.dto.DiscountRequestDto;
 import christmas.domain.discount.dto.DiscountResponseDto;
+import christmas.domain.order.OrderRequestDto;
 
 public interface Discounter {
-    DiscountResponseDto discount(DiscountRequestDto discountRequestDto);
+    DiscountResponseDto discount(OrderRequestDto orderRequest);
 }
