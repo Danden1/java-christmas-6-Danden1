@@ -2,9 +2,7 @@ package christmas.domain.order;
 
 import christmas.domain.discount.Discounter;
 import christmas.domain.discount.dto.DiscountResponseDto;
-import christmas.domain.menu.DessertMenu;
 import christmas.domain.menu.DrinkMenu;
-import christmas.domain.menu.MainFoodMenu;
 import christmas.domain.menu.Menu;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -16,13 +14,13 @@ import java.util.List;
 
 public class OrderTest {
 
-    private Order order = new Order(List.of(new TestDiscounter()));
+    private Order order = new OrderImpl(List.of(new TestDiscounter()));
 
     @Test
     @DisplayName("주문 테스트")
     public void testOrder() {
         int testMenuCount = 3;
-        OrderRequestDto orderRequestDto = new OrderRequestDto(LocalDate.of(2023,12,3), makeMenus(3));
+        OrderRequestDto orderRequestDto = new OrderRequestDto(LocalDate.of(2023,12,3), makeMenus(testMenuCount));
         OrderResponseDto result = order.order(orderRequestDto);
 
         Assertions.assertEquals(1000* testMenuCount, result.getDiscountPrice());
@@ -33,6 +31,25 @@ public class OrderTest {
             Assertions.assertEquals(1000 * testMenuCount, discount.getTotalDiscount());
             Assertions.assertEquals("테스트 할인", discount.getDiscountName());
         }
+    }
+
+    @Test
+    @DisplayName("마실 것만 주문 할 때 테스트. 오류 발생해야 함.")
+    public void testOnlyDrinkOrder() {
+        int testMenuCount = 3;
+        OrderRequestDto orderRequestDto = new OrderRequestDto(LocalDate.of(2023,12,3), makeOnlyDrinkMenus(testMenuCount));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> order.order(orderRequestDto));
+
+
+    }
+
+    private List<Menu > makeOnlyDrinkMenus(int size) {
+        List<Menu> menus = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            menus.add(DrinkMenu.ZERO_COKE);
+        }
+
+        return menus;
     }
 
     private List<Menu> makeMenus(int size) {
