@@ -1,5 +1,7 @@
 package christmas.domain.menu;
 
+import christmas.domain.order.OrderErrorMessage;
+
 public enum MainFoodMenu implements Menu {
 
     T_BONE_STEAK(55_000, "55,000", "티본스테이크"),
@@ -32,13 +34,13 @@ public enum MainFoodMenu implements Menu {
     public String getPrintPrice() {
         return printPrice;
     }
-    @Override
-    public Menu findByName(String menuName) {
+
+    public static Menu findByName(String menuName) {
         for (MainFoodMenu mainFoodMenu : MainFoodMenu.values()) {
             if (mainFoodMenu.getName().equals(menuName)) {
                 return mainFoodMenu;
             }
         }
-        throw new IllegalArgumentException("유효하지 않은 주문입니다.");
+        throw new IllegalArgumentException(OrderErrorMessage.INVALID_ORDER.getMessage());
     }
 }

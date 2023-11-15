@@ -1,6 +1,8 @@
 package christmas.domain.menu;
 
 
+import christmas.domain.order.OrderErrorMessage;
+
 public enum AppetizerMenu implements Menu {
 
     BUTTON_MUSHROOM_SOUP(6_000, "6,000", "양송이수프"),
@@ -33,13 +35,13 @@ public enum AppetizerMenu implements Menu {
         return printPrice;
     }
 
-    @Override
-    public Menu findByName(String menuName) {
+
+    public static Menu findByName(String menuName) {
         for (AppetizerMenu appetizerMenu : AppetizerMenu.values()) {
             if (appetizerMenu.getName().equals(menuName)) {
                 return appetizerMenu;
             }
         }
-        throw new IllegalArgumentException("유효하지 않은 주문입니다.");
+        throw new IllegalArgumentException(OrderErrorMessage.INVALID_ORDER.getMessage());
     }
 }
