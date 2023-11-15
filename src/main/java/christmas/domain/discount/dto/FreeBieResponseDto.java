@@ -18,11 +18,7 @@ public class FreeBieResponseDto extends DiscountResponseDto{
     }
 
     static private class FreeMenu implements Menu {
-
-        @Override
-        public Menu findByName(String menuName) {
-            return null;
-        }
+        
 
         @Override
         public int getPrice() {

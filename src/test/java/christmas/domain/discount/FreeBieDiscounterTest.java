@@ -63,10 +63,6 @@ public class FreeBieDiscounterTest {
             this.name = name;
         }
 
-        @Override
-        public Menu findByName(String menuName) {
-            return null;
-        }
 
         @Override
         public int getPrice() {

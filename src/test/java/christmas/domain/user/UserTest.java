@@ -92,10 +92,6 @@ public class UserTest {
             this.price = price;
         }
 
-        @Override
-        public Menu findByName(String menuName) {
-            return null;
-        }
 
         @Override
         public int getPrice() {

@@ -1,6 +1,8 @@
 package christmas.domain.menu;
 
 
+import christmas.domain.order.OrderErrorMessage;
+
 public enum DrinkMenu implements Menu {
 
     ZERO_COKE(3_000, "3,000", "제로콜라"),
@@ -32,13 +34,13 @@ public enum DrinkMenu implements Menu {
         return printPrice;
     }
 
-    @Override
-    public Menu findByName(String menuName) {
+
+    public static Menu findByName(String menuName) {
         for (DrinkMenu drinkMenu : DrinkMenu.values()) {
             if (drinkMenu.getName().equals(menuName)) {
                 return drinkMenu;
             }
         }
-        throw new IllegalArgumentException("유효하지 않은 주문입니다.");
+        throw new IllegalArgumentException(OrderErrorMessage.INVALID_ORDER.getMessage());
     }
 }

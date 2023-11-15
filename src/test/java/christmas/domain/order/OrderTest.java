@@ -85,11 +85,6 @@ public class OrderTest {
         }
 
         @Override
-        public Menu findByName(String menuName) {
-            return null;
-        }
-
-        @Override
         public int getPrice() {
             return price;
         }
