@@ -66,10 +66,6 @@ public class OrderImpl implements Order{
     private int getDiscountPrice(List<DiscountResponseDto> discounts) {
         int discountPrice = 0;
         for (DiscountResponseDto discount : discounts) {
-            if (discount instanceof FreeBieResponseDto) {
-                continue;
-            }
-
             discountPrice += discount.getTotalDiscount();
         }
 
