@@ -5,17 +5,15 @@ import christmas.domain.order.OrderErrorMessage;
 
 public enum DrinkMenu implements Menu {
 
-    ZERO_COKE(3_000, "3,000", "제로콜라"),
-    RED_WINE(60_000, "60,000", "레드와인"),
-    CHAMPAGNE(25_000, "25,000", "샴페인");
+    ZERO_COKE(3_000, "제로콜라"),
+    RED_WINE(60_000, "레드와인"),
+    CHAMPAGNE(25_000, "샴페인");
 
     private final int price;
-    private final String printPrice;
     private final String name;
 
-    DrinkMenu(int price, String printPrice, String name) {
+    DrinkMenu(int price, String name) {
         this.price = price;
-        this.printPrice = printPrice;
         this.name = name;
     }
 
@@ -29,10 +27,6 @@ public enum DrinkMenu implements Menu {
         return name;
     }
 
-    @Override
-    public String getPrintPrice() {
-        return printPrice;
-    }
 
 
     public static Menu findByName(String menuName) {

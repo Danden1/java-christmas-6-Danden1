@@ -74,10 +74,6 @@ public class FreeBieDiscounterTest {
             return name;
         }
 
-        @Override
-        public String getPrintPrice() {
-            return null;
-        }
     }
     private List<Menu> makeMenuOver120_000Won() {
         int totalPrice = 0;

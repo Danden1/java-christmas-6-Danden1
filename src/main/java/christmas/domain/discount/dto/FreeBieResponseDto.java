@@ -29,10 +29,5 @@ public class FreeBieResponseDto extends DiscountResponseDto{
         public String getName() {
             return null;
         }
-
-        @Override
-        public String getPrintPrice() {
-            return null;
-        }
     }
 }

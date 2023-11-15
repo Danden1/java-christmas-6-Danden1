@@ -103,9 +103,5 @@ public class UserTest {
             return null;
         }
 
-        @Override
-        public String getPrintPrice() {
-            return null;
-        }
     }
 }

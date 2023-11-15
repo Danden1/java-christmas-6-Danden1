@@ -94,9 +94,5 @@ public class OrderTest {
             return name;
         }
 
-        @Override
-        public String getPrintPrice() {
-            return null;
-        }
     }
 }
