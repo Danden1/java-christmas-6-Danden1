@@ -255,7 +255,7 @@ BUILD SUCCESSFUL in 0s
           System.out.println("<주문 메뉴>");
           // ...
       }
-      // ...
+      // ..
   }
   ```
 
